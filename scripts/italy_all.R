@@ -6,7 +6,7 @@ library(leaflegend)
 current_path = rstudioapi::getActiveDocumentContext()$path 
 setwd(dirname(current_path ))
 
-df <- read.csv("../data/italy_geodata_count_new_new.csv")
+df <- read.csv("../data/geodata-north-xlsx.csv")
 
 pal <- colorNumeric(
   palette = "Oranges",
@@ -18,10 +18,8 @@ m <- leaflet(df) %>%
   addTiles() %>%  # Add default OpenStreetMap map tiles
   addCircles(~longitude,
              ~latitude,
-             #popup=~library_name,
-             #icon = awesome,
-             radius = ~number_of_books_held * 300,
-             color = ~pal(number_of_books_held),
+             radius = ~number_of_works * 500,
+             color = ~pal(number_of_works),
              #stroke = FALSE,
              fillOpacity = 0.5,
              popup = paste0(
@@ -35,10 +33,10 @@ m <- leaflet(df) %>%
                , df$area
                , "<br>"
                , "<b>Number of books held: </b>"
-               , df$number_of_books_held
+               , df$number_of_works
              ))
 
 m
 
 library(htmlwidgets)
-saveWidget(m, file="../maps/italy_all.html")
+saveWidget(m, file="../maps/italy_north.html")
