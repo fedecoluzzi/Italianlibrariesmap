@@ -2,6 +2,10 @@ library(leaflet)
 library(htmlwidgets)
 library(rstudioapi)
 
+# Next steps
+# Check geospatial co-ordinates
+#. https://towardsdatascience.com/geocoding-tableau-and-r-integration-c5b32dc0eda6
+
 current_path = rstudioapi::getActiveDocumentContext()$path 
 setwd(dirname(current_path ))
 
