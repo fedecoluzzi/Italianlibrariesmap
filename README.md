@@ -11,4 +11,5 @@ GitHub pages is used to publish these maps.
 Maps:
 
 [South Italy](https://fedecoluzzi.github.io/Italianlibrariesmap/maps/italy_south.html)
+
 [All Italy](https://fedecoluzzi.github.io/Italianlibrariesmap/maps/italy_all.html)
