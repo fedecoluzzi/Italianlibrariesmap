@@ -1,6 +1,8 @@
 # Italian Libraries Map
 
-Code for creating leaflet maps using the R library.
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/fedecoluzzi/Italianlibrariesmap/main)
+
+Code for creating leaflet maps using the R library. To open the repository in RStudio click on the Binder button above. Select RStudio when the Jupyterlab interface appears.
 
 [scripts](scripts) - R script to create folder .html files
 [data](data) - CSV files containing library names, coordinates, and number of books held

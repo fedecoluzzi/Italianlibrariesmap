@@ -1,0 +1,9 @@
+install.packages(
+ c( 
+  "tibble",
+  "stringr",
+  "ggmaps",
+  "leaflet",
+  "htmlwidgets",
+  "rstudioapi")
+)
