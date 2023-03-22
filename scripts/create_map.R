@@ -32,6 +32,7 @@ labels <- paste0(
 # for more complex popups see
 #   https://stackoverflow.com/questions/47789632/customizing-leaflet-popup-in-r
 m <- leaflet(df) %>%
+  addProviderTiles(providers$Thunderforest.Pioneer) %>%
   addTiles() %>%  # Add default OpenStreetMap map tiles
   addAwesomeMarkers(lng = ~longitude,
              lat = ~latitude,
