@@ -25,7 +25,7 @@ labels <- paste0(
   , df$library
   , "<br>"
   , "<b>Number of books held: </b>"
-  , df$number_of_works
+  , df$number_of_books_held
 ) %>%
   lapply(htmltools::HTML)
 
@@ -37,7 +37,6 @@ m <- leaflet(df) %>%
              lat = ~latitude,
              icon=icons,
              label=~labels,
-             group=~area,
              clusterOptions = markerClusterOptions())
 
 m
