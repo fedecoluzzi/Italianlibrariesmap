@@ -9,20 +9,7 @@ library(rstudioapi)
 current_path = rstudioapi::getActiveDocumentContext()$path 
 setwd(dirname(current_path ))
 
-df <- read.csv("../data/libraries.csv")
-
-# taken from
-#   https://colorbrewer2.org/#type=sequential&scheme=YlOrBr&n=5
-getColor <- function(number_of_works) {
-  sapply(df$number_of_works, function(number_of_works) {
-    if(number_of_works <= 5) {
-      "white"
-    } else if(number_of_works <= 10) {
-      "grey"
-    } else if(number_of_works <= 15) {
-      "black"
-    }})
-}
+df <- read.csv("../data/library_geodata.csv")
 
 icons <- awesomeIcons(
   icon = 'fa-book',
@@ -35,13 +22,7 @@ icons <- awesomeIcons(
 #   https://www.drdataking.com/post/how-to-add-multiple-lines-label-on-a-leaflet-map/
 labels <- paste0(
   "<b>Library: </b>"
-  , df$library_name
-  , "<br>"
-  ,"<b>Location: </b>"
-  , df$place
-  , "<br>"
-  ,"<b>Area: </b>"
-  , df$area
+  , df$library
   , "<br>"
   , "<b>Number of books held: </b>"
   , df$number_of_works
@@ -56,13 +37,10 @@ m <- leaflet(df) %>%
              lat = ~latitude,
              icon=icons,
              label=~labels,
-             group=~area) %>%
-  addLayersControl(
-    overlayGroups = ~area,
-    options = layersControlOptions(collapsed = FALSE)
-  )
+             group=~area,
+             clusterOptions = markerClusterOptions())
 
 m
 
 library(htmlwidgets)
-saveWidget(m, file="../maps/italy_all.html")
+saveWidget(m, file="../maps/italy_map.html")
