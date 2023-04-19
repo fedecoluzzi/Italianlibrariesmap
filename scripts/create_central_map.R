@@ -1,7 +1,6 @@
 library(leaflet)
 library(htmlwidgets)
 library(rstudioapi)
-library(tidyverse)
 
 # Next steps
 # Check geospatial co-ordinates
@@ -10,15 +9,7 @@ library(tidyverse)
 current_path = rstudioapi::getActiveDocumentContext()$path 
 setwd(dirname(current_path ))
 
-files <- list.files('../data')
-
-df <- tibble()
-
-for (file in files) {
-  path <- paste0("../data/", file)
-  data <- read_csv(path)
-  df <- bind_rows(df, data)
-}
+df <- read.csv("../data/GEODATA_MACRO_CENTRAL_ITALY.csv")
 
 icons <- awesomeIcons(
   icon = 'fa-book',
@@ -27,22 +18,14 @@ icons <- awesomeIcons(
   #markerColor = getColor(df),
 )
 
-df$
-
 # labels work thanks to
 #   https://www.drdataking.com/post/how-to-add-multiple-lines-label-on-a-leaflet-map/
 labels <- paste0(
-  '<b>Library: </b><a href="',
-  df$`Library website`
-  ,'">'
-  , df$`Name of Library`
-  , "</a>"
+  "<b>Library: </b>"
+  , df$Library.name
   , "<br>"
-  ,"<b>Location:</b>"
-  , df$Location
-  ,"<br>"
   , "<b>Number of books held: </b>"
-  , df$`Number of works`
+  , df$Number.of.works
 ) %>%
   lapply(htmltools::HTML)
 
@@ -51,12 +34,12 @@ labels <- paste0(
 m <- leaflet(df) %>%
   addProviderTiles(providers$CartoDB.Voyager) %>%
   addAwesomeMarkers(lng = ~Longitude,
-             lat = ~Latitude,
-             icon=icons,
-             popup=~labels,
-             clusterOptions = markerClusterOptions())
+                    lat = ~Latitude,
+                    icon=icons,
+                    label=~labels,
+                    clusterOptions = markerClusterOptions())
 
 m
 
 library(htmlwidgets)
-saveWidget(m, file="../maps/italy_map.html")
+saveWidget(m, file="../maps/italy_central_map.html")
