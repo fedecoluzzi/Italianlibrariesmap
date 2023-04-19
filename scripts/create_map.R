@@ -5,12 +5,12 @@ library(tidyverse)
 
 # Next steps
 # Check geospatial co-ordinates
-#. https://towardsdatascience.com/geocoding-tableau-and-r-integration-c5b32dc0eda6
+# . https://towardsdatascience.com/geocoding-tableau-and-r-integration-c5b32dc0eda6
 
-current_path = rstudioapi::getActiveDocumentContext()$path 
-setwd(dirname(current_path ))
+current_path <- rstudioapi::getActiveDocumentContext()$path
+setwd(dirname(current_path))
 
-files <- list.files('../data')
+files <- list.files("../data")
 
 df <- tibble()
 
@@ -20,29 +20,29 @@ for (file in files) {
   df <- bind_rows(df, data)
 }
 
-icons <- awesomeIcons(
-  icon = 'fa-book',
-  iconColor = 'black',
-  library = 'fa',
-  #markerColor = getColor(df),
-)
+df <- df %>% distinct()
 
-df$
+icons <- awesomeIcons(
+  icon = "fa-book",
+  iconColor = "black",
+  library = "fa",
+  # markerColor = getColor(df),
+)
 
 # labels work thanks to
 #   https://www.drdataking.com/post/how-to-add-multiple-lines-label-on-a-leaflet-map/
 labels <- paste0(
-  '<b>Library: </b><a href="',
-  df$`Library website`
-  ,'">'
-  , df$`Name of Library`
-  , "</a>"
-  , "<br>"
-  ,"<b>Location:</b>"
-  , df$Location
-  ,"<br>"
-  , "<b>Number of books held: </b>"
-  , df$`Number of works`
+  '<b>Library: </b><a href="https://',
+  df$`Library website`,
+  '">',
+  df$`Name of Library`,
+  "</a>",
+  "<br>",
+  "<b>Location:</b>",
+  df$Location,
+  "<br>",
+  "<b>Number of books held: </b>",
+  df$`Number of works`
 ) %>%
   lapply(htmltools::HTML)
 
@@ -50,13 +50,15 @@ labels <- paste0(
 #   https://stackoverflow.com/questions/47789632/customizing-leaflet-popup-in-r
 m <- leaflet(df) %>%
   addProviderTiles(providers$CartoDB.Voyager) %>%
-  addAwesomeMarkers(lng = ~Longitude,
-             lat = ~Latitude,
-             icon=icons,
-             popup=~labels,
-             clusterOptions = markerClusterOptions())
+  addAwesomeMarkers(
+    lng = ~Longitude,
+    lat = ~Latitude,
+    icon = icons,
+    popup = ~labels,
+    clusterOptions = markerClusterOptions()
+  )
 
 m
 
 library(htmlwidgets)
-saveWidget(m, file="../maps/italy_map.html")
+saveWidget(m, file = "../maps/italy_map.html")
