@@ -12,13 +12,13 @@ setwd(dirname(current_path))
 
 files <- list.files("../data")
 
-#df <- tibble()
+# df <- tibble()
 
-#for (file in files) {
+# for (file in files) {
 #  path <- paste0("../data/", file)
 #  data <- read_csv(path)
 #  df <- bind_rows(df, data)
-#}
+# }
 
 df <- read_csv(paste0("../data/", "GEODATA_MACRO_ITALY.csv"))
 
@@ -44,7 +44,10 @@ labels <- paste0(
   df$Location,
   "<br>",
   "<b>Number of books held: </b>",
-  df$`Number of works`
+  df$`Number of works`,
+  "<br>",
+  "<b>Type of Library: </b>",
+  df$`Type of Library`
 ) %>%
   lapply(htmltools::HTML)
 
