@@ -12,13 +12,15 @@ setwd(dirname(current_path))
 
 files <- list.files("../data")
 
-df <- tibble()
+#df <- tibble()
 
-for (file in files) {
-  path <- paste0("../data/", file)
-  data <- read_csv(path)
-  df <- bind_rows(df, data)
-}
+#for (file in files) {
+#  path <- paste0("../data/", file)
+#  data <- read_csv(path)
+#  df <- bind_rows(df, data)
+#}
+
+df <- read_csv(paste0("../data/", "GEODATA_MACRO_ITALY.csv"))
 
 df <- df %>% distinct()
 
